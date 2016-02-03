@@ -1,0 +1,69 @@
+// @import url('//fonts.googleapis.com/css?family=Roboto');
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	font-family: 'Roboto', sans-serif;
+}
+
+.app {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.header {
+	flex-wrap: nowrap;
+	padding-top: 8px;
+	padding-bottom: 8px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	width: 100%;
+  	justify-content: center;
+  	border-bottom: 1px solid #e1e1e1;
+  	background-color: #fAfAfA;
+}
+
+.board {
+	display: flex;
+	flex-wrap: wrap;
+	padding: 80px;
+	width: 580px;
+	margin: 0 auto;
+}
+.column {
+	float: left;
+}
+.piece {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	margin: 5px;
+	cursor: pointer;
+	text-align: center;
+	padding-top: 15px;
+	transition: all .2s ease;
+}
+.piece-empty {
+	background: #E7E7E7;
+	border: 1px solid #A1A1A1;
+}
+[class*="piece-"]:hover {
+	border-color: #999;
+	background: #ccc;
+	transform: scaleX(1.1) scaleY(1.1);
+	box-shadow: inset 0px 0px 16px 0px rgba(0,0,0,0.16);
+}
+.piece-player-1 {
+	background: #4A90E2;
+	border: 1px solid #FFFFFF;
+}
+.piece-player-1:hover { border-color: #4A90E2; }
+.piece-player-2 {
+	background: #F8E71C;
+	border: 1px solid #FFFFFF;
+}
+.piece-player-2:hover { border-color: #F8E71C; }

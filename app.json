@@ -1,0 +1,6 @@
+{
+  "name": "connect4",
+  "description": "connect4 game",
+  "repository": "https://github.com/serkansokmen/connect4",
+  "keywords": ["node", "express", "webpack", "react"]
+}
