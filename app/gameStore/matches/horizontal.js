@@ -1,5 +1,4 @@
 // https://github.com/sergiocruz/react-connect4/tree/master/app/components/connect-4/lib/matches
-export default isHorizontal;
 
 /**
  * Are there any matches horizontally?
@@ -7,18 +6,14 @@ export default isHorizontal;
  *
  * @return {Boolean}
  */
-function isHorizontal(grid) {
-
-  // Number of rows
-  const rowsNum = 6;
-  const columnsNum = 7;
+export default function(grid, numCols, numRows) {
 
   // which piece was found and how many
   let found = 0;
   let foundPiece = 0;
 
-  for (let x = 0; x < rowsNum; x++) {
-    for (let y = 0; y < columnsNum; y++) {
+  for (let x = 0; x < numRows; x++) {
+    for (let y = 0; y < numCols; y++) {
 
       // Current piece in this row
       let piece = grid[y][x];

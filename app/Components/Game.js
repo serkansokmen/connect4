@@ -2,7 +2,20 @@ import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { startGame, addPiece, checkAnswer, endGame } from '../gameStore'
+import Modal from 'react-modal'
 import Piece from './Piece'
+
+
+const customStyles = {
+  content : {
+    top                   : '50%',
+    left                  : '50%',
+    right                 : 'auto',
+    bottom                : 'auto',
+    marginRight           : '-50%',
+    transform             : 'translate(-50%, -50%)'
+  }
+}
 
 
 class Game extends Component {
@@ -17,12 +30,20 @@ class Game extends Component {
   constructor () {
     super()
     this.handleStartGame = this.handleStartGame.bind(this)
+    this.handleAddPiece = this.handleAddPiece.bind(this)
   }
 
   shouldComponentUpdate (nextProps, nextState) {
-    console.log(nextProps.grid);
     // No need to update if immutable object doesn't change
+    if (nextProps.matches) {
+      nextProps.dispatch(endGame())
+      return true
+    }
     return this.props.grid !== nextProps.grid;
+  }
+
+  componentDidMount() {
+    this.handleStartGame()
   }
 
   handleStartGame () {
@@ -30,7 +51,9 @@ class Game extends Component {
   }
 
   handleAddPiece (colIndex, player) {
-    console.log(colIndex, player);
+    if (!this.props.boardActive) {
+      return
+    }
     this.props.dispatch(addPiece(colIndex, player))
     setTimeout(() => {
       this.props.dispatch(checkAnswer())
@@ -39,7 +62,9 @@ class Game extends Component {
 
   render () {
 
-    const { boardActive, inserts, player, grid } = this.props
+    const { boardActive, inserts, player, grid, matches, result } = this.props
+    const self = this
+
     // Array of cells
     let cells = grid.map((column, y) => {
       return (
@@ -47,26 +72,24 @@ class Game extends Component {
           {column.map((piece, x) => {
             return <Piece key={`cell-${x}-${y}`}
               value={piece}
-              onClick={this.handleAddPiece.bind(null, y, player)}/>
+              x={x}
+              y={y}
+              player={player}
+              onPieceClick={self.handleAddPiece.bind(this, y, player)}/>
           })}
         </div>
       );
     });
 
-    const game = boardActive ? (
-      <div>
-        <div>{grid}</div>
-        <div>Inserts: {inserts}</div>
-        <div className="board">{cells}</div>
-        <button className="btn" onClick={this.handleAddPiece}>Add piece</button>
-      </div>
-    ) : null
-
     return (
       <div>
         <h1>Connect4</h1>
         <button className="btn" onClick={this.handleStartGame}>New game</button>
-        {game}
+        <div className="board">{cells}</div>
+        <Modal isOpen={!boardActive && matches} style={customStyles}>
+          <h2>{result}</h2>
+          <button onClick={this.handleStartGame}>Play again?</button>
+        </Modal>
       </div>
     )
   }
@@ -76,9 +99,11 @@ class Game extends Component {
 const mapStateToProps = (state) => {
   return {
     grid: state.grid,
+    player: state.player,
     boardActive: state.boardActive,
     inserts: state.inserts,
-    player: state.player
+    matches: state.matches,
+    result: state.result
   }
 }
 

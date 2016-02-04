@@ -1,11 +1,10 @@
 // https://github.com/sergiocruz/react-connect4/tree/master/app/components/connect-4/lib/matches
-export default isVertical;
 
 /**
  * Are there matches found vertically?
  * @return {Boolean}
  */
-function isVertical(grid) {
+export default function(grid) {
 
   let found = 0;
   let foundPiece = 0;

@@ -1,8 +1,7 @@
 import React from 'react'
 import { PIECE_EMPTY, PIECE_PLAYER_1, PIECE_PLAYER_2 } from '../gameStore'
 
-export default (props) => {
-  const { value, x, y } = props
+const Piece = ({ value, x, y, player, onPieceClick }) => {
   const style = { x, y }
   let clsName = 'piece'
   if (value === PIECE_PLAYER_1) {
@@ -12,5 +11,8 @@ export default (props) => {
   } else if (value === PIECE_EMPTY) {
     clsName += ' piece-empty'
   }
-  return <div className={clsName} style={style}>{value}</div>
+  return <div className={clsName} style={style}
+   onClick={onPieceClick.bind(this, y, player)}>&nbsp;</div>
 }
+
+export default Piece

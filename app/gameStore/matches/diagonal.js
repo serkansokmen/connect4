@@ -1,18 +1,16 @@
 // https://github.com/sergiocruz/react-connect4/tree/master/app/components/connect-4/lib/matches
-export default isDiagonal;
 
 // General rules
 const matchReq = 4;
-const numCols = 7;
-const numRows = 6;
 
 /**
  * Are there any diagonal matches?
  * @param  {Array}  grid Multidmentional array representing our grid
  * @return {Boolean}
  */
-function isDiagonal(grid) {
-  return isTopRight(grid) || isTopLeft(grid);
+export default function (grid, numCols, numRows) {
+  return isTopRight(grid, numCols, numRows) ||
+    isTopLeft(grid, numCols, numRows)
 }
 
 /**
@@ -21,7 +19,7 @@ function isDiagonal(grid) {
  *
  * @return {Boolean}
  */
-function isTopLeft(grid) {
+function isTopLeft(grid, numCols, numRows) {
 
   let found;
   let foundPiece;
@@ -75,7 +73,7 @@ function isTopLeft(grid) {
  *
  * @return {Boolean}
  */
-function isTopRight(grid) {
+function isTopRight(grid, numCols, numRows) {
 
   let found;
   let foundPiece;

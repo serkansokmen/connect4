@@ -23,12 +23,12 @@ export const startGame = (cols = 7, rows = 6) => {
 }
 
 // Action creators
-export const addPiece = (columnIndex, piece) => {
+export const addPiece = (columnIndex, player) => {
   return {
     type: ADD_PIECE,
     payload: {
       columnIndex,
-      piece
+      player
     }
   }
 }
@@ -52,7 +52,9 @@ const initialState = {
   rows: 6,
   inserts: 0,
   player: 1,
-  boardActive: false
+  boardActive: false,
+  matches: false,
+  result: null
 }
 
 // Reducers
@@ -72,13 +74,17 @@ const connect4 = (state = initialState, action) => {
       }
       return {
         ...state,
+        grid,
+        cols,
+        rows,
+        player: 1,
         boardActive: true,
-        grid
+        matches: false
       }
 
     case ADD_PIECE:
       console.log('Adding a new piece');
-      const { columnIndex, piece } = action.payload
+      const { columnIndex, player } = action.payload
       let column = state.grid[columnIndex]
       let cellIndex = -1
       let isAvailableCell = false
@@ -89,34 +95,44 @@ const connect4 = (state = initialState, action) => {
         }
       })
       isAvailableCell = (cellIndex >= 0)
-
+      const newGrid = [...state.grid]
       if (isAvailableCell) {
-        column[cellIndex] = piece
+        // column[cellIndex] = piece
+        newGrid[columnIndex][cellIndex] = player
       }
-
 
       return {
         ...state,
         inserts: isAvailableCell ? state.inserts + 1 : state.inserts,
-        player: isAvailableCell ? (state.player === 1 ? 2 : 1) : state.player
+        player: isAvailableCell ? getOtherPlayer(state.player) : state.player,
+        grid: newGrid,
+        boardActive: false
       }
 
     case CHECK_ANSWER:
       console.log('Checking answer');
       return {
         ...state,
-        boardActive: !matches(state.grid)
+        boardActive: true,
+        matches: matches(state.grid, state.cols, state.rows)
       }
 
     case END_GAME:
       console.log('Game ended!');
+      console.log(state.player);
       return {
-        ...state
+        ...state,
+        boardActive: false,
+        result: `Player ${getOtherPlayer(state.player)} wins!`
       }
 
     default:
       return state
   }
+}
+
+const getOtherPlayer = (player) => {
+  return player === PIECE_PLAYER_1 ? PIECE_PLAYER_2 : PIECE_PLAYER_1
 }
 
 // Store
