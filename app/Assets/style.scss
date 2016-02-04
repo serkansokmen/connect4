@@ -1,5 +1,8 @@
 @import url('//fonts.googleapis.com/css?family=Dosis|Candal');
 
+$piece-color-1: #4A90E2;
+$piece-color-2: #F5A623;
+
 * {
 	box-sizing: border-box;
 }
@@ -8,6 +11,11 @@ body {
 	font-family: 'Dosis', sans-serif;
 	padding-top: 60px;
 }
+
+.container {
+  max-width: 600px;
+}
+
 h1, h2 {
 	font-family: 'Candal', sans-serif;
 	margin-bottom: 24px;
@@ -54,25 +62,26 @@ h1, h2 {
   box-shadow: inset 0px 0px 16px 0px rgba(0,0,0,0.16);
   text-decoration: none;
 }
+
 .piece-player-1 {
-	background: #4A90E2;
+	background: $piece-color-1;
 }
 .piece-player-1:hover {
-	border: 2px solid #4A90E2;
-	background: #4A90E2;
+	border: 2px solid $piece-color-1;
+	background: $piece-color-1;
 }
 .column-hovered-player-1 .piece-empty {
-  border: 2px solid #4A90E2;
+  border: 2px solid $piece-color-1;
 }
 .piece-player-2 {
-	background: #F5A623;
+	background: $piece-color-2;
 }
 .piece-player-2:hover {
 	border: 2px solid #F8E71C;
-	background: #F5A623;
+	background: $piece-color-2;
 }
 .column-hovered-player-2 .piece-empty {
-  border: 2px solid #F8E71C;
+  border: 2px solid $piece-color-2;
 }
 [class*="piece-player-"] {
 	box-shadow: inset 0px 0px 16px 0px rgba(0,0,0,0.16);
