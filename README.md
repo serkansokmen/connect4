@@ -1,4 +1,5 @@
 # Connect4
+Connect4 game experiment with React and Redux
 
 ## Usage
 Clone the repository:

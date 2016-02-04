@@ -1,7 +1,7 @@
 {
   "name": "connect4",
   "version": "1.0.0",
-  "description": "connect4 game",
+  "description": "Connect4 game experiment with React and Redux",
   "main": "server/index.js",
   "scripts": {
     "dev-server": "nodemon server/index.js --watch server",
