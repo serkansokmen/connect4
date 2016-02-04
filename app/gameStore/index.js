@@ -8,6 +8,9 @@ const ADD_PIECE = 'ADD_PIECE'
 const CHECK_ANSWER = 'CHECK_ANSWER'
 const END_GAME = 'END_GAME'
 
+const HOVER_PIECE = 'HOVER_PIECE'
+const BLUR_PIECE = 'BLUR_PIECE'
+
 export const PIECE_EMPTY = 0
 export const PIECE_PLAYER_1 = 1
 export const PIECE_PLAYER_2 = 2
@@ -39,6 +42,20 @@ export const checkAnswer = () => {
   }
 }
 
+export const hoverPiece = (columnIndex) => {
+  return {
+    type: HOVER_PIECE,
+    payload: {
+      columnIndex
+    }
+  }
+}
+export const blurPiece = () => {
+  return {
+    type: BLUR_PIECE
+  }
+}
+
 export const endGame = () => {
   return {
     type: END_GAME
@@ -54,7 +71,10 @@ const initialState = {
   player: 1,
   boardActive: false,
   matches: false,
-  result: null
+  result: null,
+  isGameRunning: false,
+  hovered: false,
+  hoverColumnIndex: null
 }
 
 // Reducers
@@ -79,7 +99,10 @@ const connect4 = (state = initialState, action) => {
         rows,
         player: 1,
         boardActive: true,
-        matches: false
+        matches: false,
+        isGameRunning: true,
+        hovered: false,
+        hoverColumnIndex: null
       }
 
     case ADD_PIECE:
@@ -106,7 +129,9 @@ const connect4 = (state = initialState, action) => {
         inserts: isAvailableCell ? state.inserts + 1 : state.inserts,
         player: isAvailableCell ? getOtherPlayer(state.player) : state.player,
         grid: newGrid,
-        boardActive: false
+        boardActive: false,
+        hovered: false,
+        hoverColumnIndex: null
       }
 
     case CHECK_ANSWER:
@@ -117,12 +142,24 @@ const connect4 = (state = initialState, action) => {
         matches: matches(state.grid, state.cols, state.rows)
       }
 
+    case HOVER_PIECE:
+      return {
+        ...state,
+        hovered: true,
+        hoverColumnIndex: action.payload.columnIndex
+      }
+    case BLUR_PIECE:
+      return {
+        ...state,
+        hovered: false,
+        hoverColumnIndex: null
+      }
+
     case END_GAME:
-      console.log('Game ended!');
-      console.log(state.player);
       return {
         ...state,
         boardActive: false,
+        isGameRunning: false,
         result: `Player ${getOtherPlayer(state.player)} wins!`
       }
 

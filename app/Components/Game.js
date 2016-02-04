@@ -1,22 +1,24 @@
 import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { startGame, addPiece, checkAnswer, endGame } from '../gameStore'
+import { startGame, addPiece, hoverPiece, blurPiece, checkAnswer, endGame } from '../gameStore'
 import Modal from 'react-modal'
+import SplashScreen from './SplashScreen'
 import Piece from './Piece'
 
 
-const customStyles = {
+const modalStyles = {
   content : {
     top                   : '50%',
     left                  : '50%',
     right                 : 'auto',
     bottom                : 'auto',
     marginRight           : '-50%',
-    transform             : 'translate(-50%, -50%)'
+    transform             : 'translate(-50%, -50%)',
+    textAlign             : 'center',
+    padding               : 80
   }
 }
-
 
 class Game extends Component {
 
@@ -42,10 +44,6 @@ class Game extends Component {
     return this.props.grid !== nextProps.grid;
   }
 
-  componentDidMount() {
-    this.handleStartGame()
-  }
-
   handleStartGame () {
     this.props.dispatch(startGame())
   }
@@ -60,35 +58,67 @@ class Game extends Component {
     }, 400)
   }
 
+  handleHover (colIndex) {
+    this.props.dispatch(hoverPiece(colIndex))
+  }
+  handleBlur () {
+    this.props.dispatch(blurPiece())
+  }
+
   render () {
 
-    const { boardActive, inserts, player, grid, matches, result } = this.props
+    const {
+      boardActive,
+      inserts,
+      player,
+      grid,
+      matches,
+      result,
+      isGameRunning,
+      hovered,
+      hoverColumnIndex
+    } = this.props
+
     const self = this
 
     // Array of cells
     let cells = grid.map((column, y) => {
+      let columnClsName = 'column'
+      if (y === hoverColumnIndex && hovered) {
+        columnClsName += ' column-hovered'
+      }
       return (
-        <div className='column' key={`c-${y}`}>
+        <div className={columnClsName} key={`c-${y}`}>
           {column.map((piece, x) => {
             return <Piece key={`cell-${x}-${y}`}
               value={piece}
               x={x}
               y={y}
               player={player}
-              onPieceClick={self.handleAddPiece.bind(this, y, player)}/>
+              onPieceClick={self.handleAddPiece.bind(this, y, player)}
+              onPieceHover={self.handleHover.bind(this, y)}
+              onPieceBlur={self.handleBlur.bind(this)}/>
           })}
         </div>
       );
     });
 
     return (
-      <div>
-        <h1>Connect4</h1>
-        <button className="btn" onClick={this.handleStartGame}>New game</button>
-        <div className="board">{cells}</div>
-        <Modal isOpen={!boardActive && matches} style={customStyles}>
+      <div className='container'>
+
+        <div className='row'>
+          <div className='col-xs-12'>
+            {isGameRunning ? <div className="board">{cells}</div>
+              : <SplashScreen onNewGame={this.handleStartGame}/>}
+          </div>
+        </div>
+
+        <Modal isOpen={!boardActive && matches && !isGameRunning}
+          style={modalStyles}
+          onRequestClose={this.closeModal}>
           <h2>{result}</h2>
-          <button onClick={this.handleStartGame}>Play again?</button>
+          <button className='btn btn-lg btn-success'
+            onClick={this.handleStartGame}>Play again</button>
         </Modal>
       </div>
     )
@@ -97,13 +127,17 @@ class Game extends Component {
 
 
 const mapStateToProps = (state) => {
+
   return {
     grid: state.grid,
     player: state.player,
     boardActive: state.boardActive,
     inserts: state.inserts,
     matches: state.matches,
-    result: state.result
+    result: state.result,
+    isGameRunning: state.isGameRunning,
+    hovered: state.hovered,
+    hoverColumnIndex: state.hoverColumnIndex
   }
 }
 
