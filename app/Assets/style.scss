@@ -48,12 +48,16 @@ h1, h2 {
 	border: 1px solid transparent;
 }
 [class*="piece-"]:hover,
-.colum-hovered [class*="piece-"] {
-	border-color: #999;
-	background: #ccc;
-	transform: scaleX(1.1) scaleY(1.1);
-	box-shadow: inset 0px 0px 16px 0px rgba(0,0,0,0.16);
-	text-decoration: none;
+.column-hovered [class*="piece-"],
+.column-hovered [class*="piece-player-"] {
+	border: 1px solid #999;
+}
+[class*="piece-"]:hover {
+  border-color: #999;
+  background: #ccc;
+  transform: scaleX(1.1) scaleY(1.1);
+  box-shadow: inset 0px 0px 16px 0px rgba(0,0,0,0.16);
+  text-decoration: none;
 }
 .piece-player-1 {
 	background: #4A90E2;

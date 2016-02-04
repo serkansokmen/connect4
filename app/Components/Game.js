@@ -30,13 +30,15 @@ class Game extends Component {
     this.handleExitGame = this.handleExitGame.bind(this)
   }
 
-  shouldComponentUpdate (nextProps, nextState) {
-    // No need to update if immutable object doesn't change
+  // shouldComponentUpdate (nextProps, nextState) {
+  //   // No need to update if immutable object doesn't change
+  //   // return this.props.grid !== nextProps.grid;
+  //   return true
+  // }
+  componentWillReceiveProps(nextProps) {
     if (nextProps.matches) {
       nextProps.dispatch(endGame())
-      return true
     }
-    return this.props.grid !== nextProps.grid;
   }
 
   handleStartGame () {
