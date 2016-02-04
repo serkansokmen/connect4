@@ -1,16 +1,10 @@
-// https://github.com/sergiocruz/react-connect4/tree/master/app/components/connect-4/lib/matches
-
-// General rules
-const matchReq = 4;
-
 /**
  * Are there any diagonal matches?
  * @param  {Array}  grid Multidmentional array representing our grid
  * @return {Boolean}
  */
-export default function (grid, numCols, numRows) {
-  return isTopRight(grid, numCols, numRows) ||
-    isTopLeft(grid, numCols, numRows)
+export default function(grid, numCols, numRows, matchesRequired) {
+  return isTopRight(grid, numCols, numRows, matchesRequired) || isTopLeft(grid, numCols, numRows, matchesRequired);
 }
 
 /**
@@ -19,26 +13,28 @@ export default function (grid, numCols, numRows) {
  *
  * @return {Boolean}
  */
-function isTopLeft(grid, numCols, numRows) {
+function isTopLeft(grid, numCols, numRows, matchesRequired) {
 
   let found;
   let foundPiece;
-  let col;
 
   // Here, we take successive diagonals, defined by the location of their
   // "base", meaning the column where they meet the ground.
   // The initial baseCol is a negative number, representing that the diagonal
   // starts off the board. These diagonals intersect the board, nonetheless.
   for (
-    let baseCol = matchReq - numRows;
-    baseCol < numCols - (matchReq - 1);
+    let baseCol = matchesRequired - numRows;
+    baseCol < numCols - (matchesRequired - 1);
     baseCol++
   ) {
 
+    // Reset
     found = 0;
     foundPiece = 0;
-    col = baseCol - 1; // Subtracting 1 to compensate for incrementing col at
-                       // the beginning of the loop
+
+    // Column
+    let col = baseCol - 1; // Subtracting 1 to compensate for incrementing col at
+                           // the beginning of the loop
 
     // Here we work our way *UP* the current diagonal
     for (let row = 0; row < numRows; row++) {
@@ -53,7 +49,14 @@ function isTopLeft(grid, numCols, numRows) {
           found = 0;
         }
 
-        if (!!piece && (piece === foundPiece || !foundPiece) && (++found) === matchReq) {
+        // Reset if there has been a piece found, but not this current piece
+        if (found > 0 && piece !== foundPiece) {
+          found  = 0;
+          foundPiece = 0;
+          continue;
+        }
+
+        if (!!piece && (piece === foundPiece || !foundPiece) && (++found) === matchesRequired) {
           return true;
         }
 
@@ -73,7 +76,7 @@ function isTopLeft(grid, numCols, numRows) {
  *
  * @return {Boolean}
  */
-function isTopRight(grid, numCols, numRows) {
+function isTopRight(grid, numCols, numRows, matchesRequired) {
 
   let found;
   let foundPiece;
@@ -84,8 +87,8 @@ function isTopRight(grid, numCols, numRows) {
   // The initial baseCol is a negative number, representing that the diagonal starts off
   // the board. These diagonals intersect the board, nonetheless.
   for (
-    let baseCol = matchReq - numRows;
-    baseCol < numCols - (matchReq - 1);
+    let baseCol = matchesRequired - numRows;
+    baseCol < numCols - (matchesRequired - 1);
     baseCol++
   ) {
 
@@ -96,6 +99,7 @@ function isTopRight(grid, numCols, numRows) {
 
       // Here we work our way *DOWN* the current diagonal
       for (let row = numRows - 1; row >= 0; row--) {
+
         col++;
 
         // Ensure that the given column and row are on the board
@@ -103,11 +107,18 @@ function isTopRight(grid, numCols, numRows) {
 
           let piece = grid[col][row];
 
-          if(!piece) {
+          if (!piece) {
             found = 0;
           }
 
-          if (!!piece && (piece === foundPiece || !foundPiece) && (++found) === matchReq) {
+          // Reset if there has been a piece found, but not this current piece
+          if (found > 0 && piece !== foundPiece) {
+            found  = 0;
+            foundPiece = 0;
+            continue;
+          }
+
+          if (!!piece && (piece === foundPiece || !foundPiece) && (++found) === matchesRequired) {
             return true;
           }
 

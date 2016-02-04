@@ -1,12 +1,13 @@
 import { createStore, combineReducers } from 'redux'
-import matches from './matches';
+import matches, { isGameTied } from './matches';
 // import { Map, List, fromJS } from 'immutable'
 
 // Constants
 const START_GAME = 'START_GAME'
 const ADD_PIECE = 'ADD_PIECE'
 const CHECK_ANSWER = 'CHECK_ANSWER'
-const END_GAME = 'END_GAME'
+const WIN_GAME = 'WIN_GAME'
+const DRAW_GAME = 'DRAW_GAME'
 const EXIT_GAME = 'EXIT_GAME'
 
 const HOVER_PIECE = 'HOVER_PIECE'
@@ -57,9 +58,14 @@ export const blurPiece = () => {
   }
 }
 
-export const endGame = () => {
+export const winGame = () => {
   return {
-    type: END_GAME
+    type: WIN_GAME
+  }
+}
+export const drawGame = () => {
+  return {
+    type: DRAW_GAME
   }
 }
 
@@ -78,6 +84,7 @@ const initialState = {
   player: 1,
   boardActive: false,
   matches: false,
+  gameTied: false,
   result: null,
   isGameRunning: false,
   hovered: false,
@@ -146,7 +153,8 @@ const connect4 = (state = initialState, action) => {
       return {
         ...state,
         boardActive: true,
-        matches: matches(state.grid, state.cols, state.rows)
+        matches: matches(state.grid, state.cols, state.rows),
+        gameTied: isGameTied(state.inserts, state.cols, state.rows)
       }
 
     case HOVER_PIECE:
@@ -162,13 +170,23 @@ const connect4 = (state = initialState, action) => {
         hoverColumnIndex: null
       }
 
-    case END_GAME:
+    case WIN_GAME:
       return {
         ...state,
+        result: `Player ${getOtherPlayer(state.player)} wins! ${state.inserts} moves were made.`,
         boardActive: false,
-        isGameRunning: false,
-        result: `Player ${getOtherPlayer(state.player)} wins! ${state.inserts} moves were made.`
+        isGameRunning: false
       }
+
+    case DRAW_GAME:
+      return {
+        ...state,
+        result: 'It\'s a draw!',
+        boardActive: false,
+        isGameRunning: false
+      }
+
+
     case EXIT_GAME:
       return {
         ...initialState

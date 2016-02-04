@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { startGame, addPiece, hoverPiece, blurPiece, checkAnswer, endGame, exitGame } from '../gameStore'
+import { startGame, addPiece, hoverPiece, blurPiece, checkAnswer, winGame, drawGame, exitGame } from '../gameStore'
 import Modal from 'react-modal'
 import SplashScreen from './SplashScreen'
 import Board from './Board'
@@ -37,7 +37,9 @@ class Game extends Component {
   // }
   componentWillReceiveProps(nextProps) {
     if (nextProps.matches) {
-      nextProps.dispatch(endGame())
+      nextProps.dispatch(winGame())
+    } else if (nextProps.gameTied) {
+      nextProps.dispatch(drawGame())
     }
   }
 
@@ -122,6 +124,7 @@ const mapStateToProps = (state) => {
     boardActive: state.boardActive,
     inserts: state.inserts,
     matches: state.matches,
+    gameTied: state.gameTied,
     result: state.result,
     isGameRunning: state.isGameRunning,
     hovered: state.hovered,

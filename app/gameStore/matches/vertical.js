@@ -1,40 +1,44 @@
-// https://github.com/sergiocruz/react-connect4/tree/master/app/components/connect-4/lib/matches
-
 /**
  * Are there matches found vertically?
  * @return {Boolean}
  */
-export default function(grid) {
+export default function(grid, matchesRequired) {
 
   let found = 0;
   let foundPiece = 0;
+  let didFind = false;
 
-  for (let column of grid) {
-    for (let piece of column) {
+  grid.forEach(column => {
+    column.forEach(piece => {
+
+      // Don't do anything else because it was already found
+      if (didFind) {
+        return;
+      }
 
       // Reset things if piece is 0
       if (piece === 0) {
         found = 0;
         foundPiece = 0;
-        continue;
+        return;
       }
 
       if (piece !== foundPiece) {
         found = 1;
         foundPiece = piece;
-        continue;
+        return;
       }
 
       // Increase number of found pieces
       found++;
 
       // More than 4 found pieces in a column?
-      if (found >= 4) {
-        return true;
+      if (found >= matchesRequired) {
+        didFind = true;
+        return;
       }
-    }
-  }
+    });
+  });
 
-  // nothing was found in the same row
-  return false;
+  return didFind;
 }

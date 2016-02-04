@@ -1,12 +1,10 @@
-// https://github.com/sergiocruz/react-connect4/tree/master/app/components/connect-4/lib/matches
-
 /**
  * Are there any matches horizontally?
  * @param {Array} grid Multimentional array containing the connect4 grid
  *
  * @return {Boolean}
  */
-export default function(grid, numCols, numRows) {
+export default function(grid, numCols, numRows, matchesRequired) {
 
   // which piece was found and how many
   let found = 0;
@@ -35,7 +33,7 @@ export default function(grid, numCols, numRows) {
       found++;
 
       // More than 4 found pieces in a piece?
-      if (found >= 4) {
+      if (found >= matchesRequired) {
         return true;
       }
     }
