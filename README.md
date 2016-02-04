@@ -64,4 +64,4 @@ npm run build
 This will build the app and output the files to the `build` directory.
 
 ---
-Connect4 matching algorithms borrowed from [Sergio Cruz](https://github.com/sergiocruz)'s [react-native-connect4](https://github.com/sergiocruz/react-native-connect4) project under his permission.
+Connect4 matching algorithms from [Sergio Cruz](https://github.com/sergiocruz)'s [react-native-connect4](https://github.com/sergiocruz/react-native-connect4) project under his permission.
