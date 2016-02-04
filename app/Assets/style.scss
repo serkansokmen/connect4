@@ -36,7 +36,7 @@ h1, h2 {
 	border-radius: 50%;
 	cursor: pointer;
 	transition: all .2s ease;
-	border: 1px solid #FFFFFF;
+	border: 2px solid #FFFFFF;
 	text-decoration: none;
 }
 .piece:focus {
@@ -45,12 +45,7 @@ h1, h2 {
 }
 .piece-empty {
 	background: #E7E7E7;
-	border: 1px solid transparent;
-}
-[class*="piece-"]:hover,
-.column-hovered [class*="piece-"],
-.column-hovered [class*="piece-player-"] {
-	border: 1px solid #999;
+	border: 2px solid transparent;
 }
 [class*="piece-"]:hover {
   border-color: #999;
@@ -63,15 +58,21 @@ h1, h2 {
 	background: #4A90E2;
 }
 .piece-player-1:hover {
-	border-color: #4A90E2;
+	border: 2px solid #4A90E2;
 	background: #4A90E2;
+}
+.column-hovered-player-1 .piece-empty {
+  border: 2px solid #4A90E2;
 }
 .piece-player-2 {
 	background: #F5A623;
 }
 .piece-player-2:hover {
-	border-color: #F8E71C;
+	border: 2px solid #F8E71C;
 	background: #F5A623;
+}
+.column-hovered-player-2 .piece-empty {
+  border: 2px solid #F8E71C;
 }
 [class*="piece-player-"] {
 	box-shadow: inset 0px 0px 16px 0px rgba(0,0,0,0.16);

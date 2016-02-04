@@ -7,7 +7,7 @@ const Board = ({ grid, player, hoverColumnIndex, hovered, onPieceClick, onPieceH
     let columnClsName = 'column'
     console.log(y, hoverColumnIndex, hovered);
     if (y === hoverColumnIndex && hovered) {
-      columnClsName += ' column-hovered'
+      columnClsName += ` column-hovered-player-${player}`
     }
     return (
       <div className={columnClsName} key={`c-${y}`}>
