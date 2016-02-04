@@ -8,7 +8,7 @@ var prodLoaders = [
   {
     test: /\.jsx?$/,
     exclude: /node_modules/,
-    loaders: ['babel-loader?stage=0&optional=runtime'],
+    loaders: ['babel'],
   }
 ]
 
@@ -34,6 +34,7 @@ module.exports = {
   plugins: [
   new webpack.optimize.DedupePlugin(),
   new webpack.optimize.UglifyJsPlugin({minimize: true}),
+  new webpack.DefinePlugin({'process.env.NODE_ENV': '"development"'}),
   commonConfig.indexPagePlugin
   ],
 };
