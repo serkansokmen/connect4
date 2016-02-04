@@ -107,6 +107,7 @@ const connect4 = (state = initialState, action) => {
         player: 1,
         boardActive: true,
         matches: false,
+        inserts: 0,
         isGameRunning: true,
         hovered: false,
         hoverColumnIndex: null
