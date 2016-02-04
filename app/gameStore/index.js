@@ -166,7 +166,7 @@ const connect4 = (state = initialState, action) => {
         ...state,
         boardActive: false,
         isGameRunning: false,
-        result: `Player ${getOtherPlayer(state.player)} wins!`
+        result: `Player ${getOtherPlayer(state.player)} wins! ${state.inserts} moves were made.`
       }
     case EXIT_GAME:
       return {
