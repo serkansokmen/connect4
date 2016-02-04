@@ -5,7 +5,6 @@ const Board = ({ grid, player, hoverColumnIndex, hovered, onPieceClick, onPieceH
   // Array of cells
   const pieces = grid.map((column, y) => {
     let columnClsName = 'column'
-    console.log(y, hoverColumnIndex, hovered);
     if (y === hoverColumnIndex && hovered) {
       columnClsName += ` column-hovered-player-${player}`
     }
