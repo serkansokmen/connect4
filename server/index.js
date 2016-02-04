@@ -11,11 +11,6 @@ app.enable('trust proxy');
 
 app.use(compression());
 
-app.options('/api/currentTime', cors());
-app.get('/api/currentTime', cors(), function(req, res) {
-  res.send({ time: new Date() });
-});
-
 app.route('/').get(function(req, res) {
     res.header('Cache-Control', "max-age=60, must-revalidate, private");
     res.sendFile('index.html', {
