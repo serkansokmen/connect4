@@ -137,8 +137,7 @@ const connect4 = (state = initialState, action) => {
         player: isAvailableCell ? getOtherPlayer(state.player) : state.player,
         grid: newGrid,
         boardActive: false,
-        hovered: false,
-        hoverColumnIndex: null
+        hovered: false
       }
 
     case CHECK_ANSWER:

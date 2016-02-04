@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { startGame, addPiece, hoverPiece, blurPiece, checkAnswer, endGame, exitGame } from '../gameStore'
 import Modal from 'react-modal'
 import SplashScreen from './SplashScreen'
-import Piece from './Piece'
+import Board from './Board'
 
 
 const modalStyles = {
@@ -77,40 +77,23 @@ class Game extends Component {
       hoverColumnIndex
     } = this.props
 
-    const self = this
-
-    // Array of cells
-    let cells = grid.map((column, y) => {
-      let columnClsName = 'column'
-      if (y === hoverColumnIndex && hovered) {
-        columnClsName += ' column-hovered'
-      }
-      return (
-        <div className={columnClsName} key={`c-${y}`}>
-          {column.map((piece, x) => {
-            return <Piece key={`cell-${x}-${y}`}
-              value={piece}
-              x={x}
-              y={y}
-              player={player}
-              onPieceClick={self.handleAddPiece.bind(this, y, player)}
-              onPieceHover={self.handleHover.bind(this, y)}
-              onPieceBlur={self.handleBlur.bind(this)}/>
-          })}
-        </div>
-      );
-    });
-
     return (
       <div className='container'>
-
         <div className='row'>
           <div className='col-xs-12'>
             {isGameRunning ? (<div className='text-center'>
-                <div className="board">{cells}</div>
+                <Board grid={grid}
+                  hovered={hovered}
+                  player={player}
+                  hoverColumnIndex={hoverColumnIndex}
+                  onPieceClick={this.handleAddPiece.bind(this)}
+                  onPieceHover={this.handleHover.bind(this)}
+                  onPieceBlur={this.handleBlur.bind(this)}/>
                 <br/>
                 <button className='btn btn-sm btn-info-outline'
-                  onClick={this.handleExitGame}> <i className="fa fa-sign-out"></i> Exit</button>
+                  onClick={this.handleExitGame}>
+                  <i className="fa fa-sign-out"></i> Exit
+                </button>
               </div>)
               : <SplashScreen onNewGame={this.handleStartGame}/>}
           </div>
@@ -131,7 +114,6 @@ class Game extends Component {
 
 
 const mapStateToProps = (state) => {
-
   return {
     grid: state.grid,
     player: state.player,
