@@ -7,13 +7,6 @@ import SplashScreen from './SplashScreen'
 import Board from './Board'
 
 
-const modalStyles = {
-  content : {
-    textAlign: 'center',
-    padding: 80
-  }
-}
-
 class Game extends Component {
 
   static propTypes = {
@@ -81,6 +74,23 @@ class Game extends Component {
       hoverColumnIndex
     } = this.props
 
+    // $piece-color-1: #4A90E2;
+    // $piece-color-2: #F5A623;
+    const didAyoneWin = !boardActive && matches && !isGameRunning
+    const modalStyles = {
+      content : {
+        top: '50%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
+        marginRight: '-50%',
+        transform: 'translate(-50%, -50%)',
+        textAlign: 'center',
+        padding: 40,
+        color: didAyoneWin ? (player === 1 ? '#F5A623' : '#4A90E2') : '#000'
+      }
+    }
+
     return (
       <div className='container'>
         <div className='row'>
@@ -108,7 +118,7 @@ class Game extends Component {
           style={modalStyles}
           onRequestClose={this.closeModal}>
           <h2>{result}</h2>
-          <button className='btn btn-lg btn-info-outline'
+          <button className='btn btn-lg btn-secondary-outline'
             onClick={this.handleStartGame}>Play again</button>
         </Modal>
       </div>
