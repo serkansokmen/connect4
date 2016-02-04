@@ -85,12 +85,3 @@ And to run continuous tests which rerun everytime a file changes:
 ```sh
 npm run testing
 ```
-
-
-## What could be done better
-
-* duplicated code in the web pack config files
-
-There is a lot of duplication between the two webpack config files - this is deliberate as I wanted it to be a as clear as possible what is happening. I have refactored the obviously common stuff like loaders and the index page generation into `webpack-common.config.js`
-
-* probably a lot of other things - open a pull request!
