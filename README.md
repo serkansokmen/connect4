@@ -1,27 +1,11 @@
-# Simple Webpack React Starter
+# Connect4
 
-## Motivation
-I couldn't find a _simple_ webpack starter template that contained all the features I wanted.
-
-I've put together this simple webpack starter example with the following features:
-
-* Hot loading of react components
-* Proxying onto your own api server (in `server/index.js`) for api calls
-* Auto reload of api server on server file changes
-* Sourcemaps during developement
-* Sourcemaps for production builds for debugging deployed code
-* Babel for js/jsx processing
-* Imagemin for processing images
-* Font handling
-* scss/sass with autoprefixer
-* Testing
-
-## Getting started
+## Usage
 Clone the repository:
 
 ```sh
-git clone git@github.com:cgreening/simple-webpack-react-starter.git
-cd simple-webpack-react-starter
+git clone git@github.com:serkansokmen/connect4.git
+cd connect4
 npm install
 npm run dev
 Browse to http://localhost:8080
@@ -29,7 +13,7 @@ Browse to http://localhost:8080
 If you just want to start a new project without all the commit history then do:
 
 ```sh
-git clone --depth=1 git@github.com:cgreening/simple-webpack-react-starter <your-project-name>
+git clone --depth=1 git@github.com:serkansokmen/connect4 <your-project-name>
 cd <your-project-name>
 npm install
 npm run dev
