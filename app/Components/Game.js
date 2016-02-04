@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { startGame, addPiece, hoverPiece, blurPiece, checkAnswer, endGame } from '../gameStore'
+import { startGame, addPiece, hoverPiece, blurPiece, checkAnswer, endGame, exitGame } from '../gameStore'
 import Modal from 'react-modal'
 import SplashScreen from './SplashScreen'
 import Piece from './Piece'
@@ -9,14 +9,8 @@ import Piece from './Piece'
 
 const modalStyles = {
   content : {
-    top                   : '50%',
-    left                  : '50%',
-    right                 : 'auto',
-    bottom                : 'auto',
-    marginRight           : '-50%',
-    transform             : 'translate(-50%, -50%)',
-    textAlign             : 'center',
-    padding               : 80
+    textAlign: 'center',
+    padding: 80
   }
 }
 
@@ -33,6 +27,7 @@ class Game extends Component {
     super()
     this.handleStartGame = this.handleStartGame.bind(this)
     this.handleAddPiece = this.handleAddPiece.bind(this)
+    this.handleExitGame = this.handleExitGame.bind(this)
   }
 
   shouldComponentUpdate (nextProps, nextState) {
@@ -63,6 +58,9 @@ class Game extends Component {
   }
   handleBlur () {
     this.props.dispatch(blurPiece())
+  }
+  handleExitGame () {
+    this.props.dispatch(exitGame())
   }
 
   render () {
@@ -108,16 +106,22 @@ class Game extends Component {
 
         <div className='row'>
           <div className='col-xs-12'>
-            {isGameRunning ? <div className="board">{cells}</div>
+            {isGameRunning ? (<div className='text-center'>
+                <div className="board">{cells}</div>
+                <br/>
+                <button className='btn btn-sm btn-info-outline'
+                  onClick={this.handleExitGame}> <i className="fa fa-sign-out"></i> Exit</button>
+              </div>)
               : <SplashScreen onNewGame={this.handleStartGame}/>}
           </div>
         </div>
 
         <Modal isOpen={!boardActive && matches && !isGameRunning}
+          closeTimeoutMS={150}
           style={modalStyles}
           onRequestClose={this.closeModal}>
           <h2>{result}</h2>
-          <button className='btn btn-lg btn-success'
+          <button className='btn btn-lg btn-info-outline'
             onClick={this.handleStartGame}>Play again</button>
         </Modal>
       </div>

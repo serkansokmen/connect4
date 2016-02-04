@@ -7,6 +7,7 @@ const START_GAME = 'START_GAME'
 const ADD_PIECE = 'ADD_PIECE'
 const CHECK_ANSWER = 'CHECK_ANSWER'
 const END_GAME = 'END_GAME'
+const EXIT_GAME = 'EXIT_GAME'
 
 const HOVER_PIECE = 'HOVER_PIECE'
 const BLUR_PIECE = 'BLUR_PIECE'
@@ -59,6 +60,12 @@ export const blurPiece = () => {
 export const endGame = () => {
   return {
     type: END_GAME
+  }
+}
+
+export const exitGame = () => {
+  return {
+    type: EXIT_GAME
   }
 }
 
@@ -161,6 +168,10 @@ const connect4 = (state = initialState, action) => {
         boardActive: false,
         isGameRunning: false,
         result: `Player ${getOtherPlayer(state.player)} wins!`
+      }
+    case EXIT_GAME:
+      return {
+        ...initialState
       }
 
     default:

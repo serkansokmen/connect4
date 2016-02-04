@@ -37,6 +37,11 @@ h1, h2 {
 	cursor: pointer;
 	transition: all .2s ease;
 	border: 1px solid #FFFFFF;
+	text-decoration: none;
+}
+.piece:focus {
+	text-decoration: none;
+	outline: none;
 }
 .piece-empty {
 	background: #E7E7E7;
@@ -48,6 +53,7 @@ h1, h2 {
 	background: #ccc;
 	transform: scaleX(1.1) scaleY(1.1);
 	box-shadow: inset 0px 0px 16px 0px rgba(0,0,0,0.16);
+	text-decoration: none;
 }
 .piece-player-1 {
 	background: #4A90E2;
@@ -69,4 +75,37 @@ h1, h2 {
 [class*="piece-player-"]:hover {
 	box-shadow: none;
 	transform: scaleX(1) scaleY(1);
+}
+
+.text-center {
+	text-align: center;
+}
+
+.ReactModal__Overlay {
+  -webkit-perspective: 600;
+  perspective: 600;
+  opacity: 0;
+}
+
+.ReactModal__Overlay--after-open {
+  opacity: 1;
+  transition: opacity 150ms ease-out;
+}
+
+.ReactModal__Content {
+  -webkit-transform: scale(0.5) rotateX(-30deg);
+}
+
+.ReactModal__Content--after-open {
+  -webkit-transform: scale(1) rotateX(0deg);
+  transition: all 150ms ease-in;
+}
+
+.ReactModal__Overlay--before-close {
+  opacity: 0;
+}
+
+.ReactModal__Content--before-close {
+  -webkit-transform: scale(0.5) rotateX(30deg);
+  transition: all 150ms ease-in;
 }

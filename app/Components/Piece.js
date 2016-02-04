@@ -10,10 +10,10 @@ const Piece = ({ value, x, y, player, onPieceClick, onPieceHover, onPieceBlur })
   } else if (value === PIECE_EMPTY) {
     clsName += ' piece-empty'
   }
-  return <div className={clsName}
+  return <button className={clsName}
    onClick={onPieceClick.bind(this, y, player)}
    onMouseEnter={onPieceHover.bind(this, y)}
-   onMouseOut={onPieceBlur.bind(this)}>&nbsp;</div>
+   onMouseOut={onPieceBlur.bind(this)}></button>
 }
 
 export default Piece
