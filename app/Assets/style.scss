@@ -1,6 +1,7 @@
 @import url('//fonts.googleapis.com/css?family=Dosis|Candal');
 
-$piece-empty-color: #E7E7E7;
+$board-bg-color: #e7e7e7;
+$piece-empty-color: #fff;
 $piece-color-1: #4A90E2;
 $piece-color-2: #F5A623;
 
@@ -32,6 +33,7 @@ h1, h2 {
 	justify-content: space-around;
 	height: 480px;
   border: 2px solid $piece-empty-color;
+  background: $board-bg-color;
   border-radius: 36px;
   padding: 20px;
 }
@@ -46,7 +48,7 @@ h1, h2 {
 	width: 60px;
 	height: 60px;
 	border-radius: 50%;
-  border: 2px solid white;
+  border: 2px solid $board-bg-color;
   background: $piece-empty-color;
 	cursor: pointer;
 	text-decoration: none;
