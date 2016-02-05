@@ -96,7 +96,7 @@ const connect4 = (state = initialState, action) => {
   switch (action.type) {
 
     case START_GAME:
-      console.log('Starting a new game');
+      // Starting a new game
       const { cols, rows } = action.payload
       let grid = []
       for (let i = 0; i < cols; i++) {
@@ -121,7 +121,7 @@ const connect4 = (state = initialState, action) => {
       }
 
     case ADD_PIECE:
-      console.log('Adding a new piece');
+      // Adding a new piece
       const { columnIndex, player } = action.payload
       let column = state.grid[columnIndex]
       let cellIndex = -1
@@ -149,7 +149,7 @@ const connect4 = (state = initialState, action) => {
       }
 
     case CHECK_ANSWER:
-      console.log('Checking answer');
+      // Checking answer
       return {
         ...state,
         boardActive: true,
