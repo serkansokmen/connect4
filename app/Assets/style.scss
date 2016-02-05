@@ -31,7 +31,7 @@ h1, h2 {
 	flex-wrap: nowrap;
 	justify-content: space-around;
 	height: 480px;
-  border: 2px solid #e7e7e7;
+  border: 2px solid $piece-empty-color;
   border-radius: 36px;
   padding: 20px;
 }
