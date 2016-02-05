@@ -10,7 +10,8 @@
     "build": "rm build/*; webpack --config ./webpack-prod.config.js --progress --colors && echo connect4.surge.sh > ./build/CNAME",
     "start": "node server/index.js",
     "test": "karma start",
-    "testing": "karma start --single-run=false"
+    "testing": "karma start --single-run=false",
+    "deploy": "npm run build && surge ./build"
   },
   "repository": "git@github.com:serkansokmen/connect4.git",
   "author": "Serkan Sokmen",
@@ -55,6 +56,7 @@
     "sass-loader": "^1.0.2",
     "sinon": "^1.15.3",
     "style-loader": "^0.12.3",
+    "surge": "0.17.7",
     "webpack": "^1.9.11",
     "webpack-dev-server": "^1.9.0"
   }
