@@ -49,7 +49,7 @@ h1, h2 {
   transition: all 0.2s;
   @for $i from 1 through 30 {
     &:nth-of-type(#{$i}) {
-      transition-delay: 25ms * $i;
+      transition-delay: 50ms * $i;
     }
   }
 
