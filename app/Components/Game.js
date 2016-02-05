@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { startGame, addPiece, hoverPiece, blurPiece, checkAnswer, winGame, drawGame, exitGame } from '../gameStore'
+import { actions } from '../gameStore'
 import Modal from 'react-modal'
 import SplashScreen from './SplashScreen'
 import Board from './Board'
@@ -30,34 +30,34 @@ class Game extends Component {
   // }
   componentWillReceiveProps(nextProps) {
     if (nextProps.matches) {
-      nextProps.dispatch(winGame())
+      nextProps.actions.winGame()
     } else if (nextProps.gameTied) {
-      nextProps.dispatch(drawGame())
+      nextProps.actions.drawGame()
     }
   }
 
   handleStartGame () {
-    this.props.dispatch(startGame())
+    this.props.actions.startGame()
   }
 
   handleAddPiece (colIndex, player) {
     if (!this.props.boardActive) {
       return
     }
-    this.props.dispatch(addPiece(colIndex, player))
+    this.props.actions.addPiece(colIndex, player)
     setTimeout(() => {
-      this.props.dispatch(checkAnswer())
+      this.props.actions.checkAnswer()
     }, 400)
   }
 
   handleHover (colIndex) {
-    this.props.dispatch(hoverPiece(colIndex))
+    this.props.actions.hoverPiece(colIndex)
   }
   handleBlur () {
-    this.props.dispatch(blurPiece())
+    this.props.actions.blurPiece()
   }
   handleExitGame () {
-    this.props.dispatch(exitGame())
+    this.props.actions.exitGame()
   }
 
   render () {
@@ -141,7 +141,13 @@ const mapStateToProps = (state) => {
     hoverColumnIndex: state.hoverColumnIndex
   }
 }
+const mapDispatchToProps = (dispatch) => {
+  return {
+    actions: bindActionCreators(actions, dispatch)
+  }
+}
 
 export default connect(
-  mapStateToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(Game)

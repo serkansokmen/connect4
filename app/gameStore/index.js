@@ -16,7 +16,7 @@ export const PIECE_EMPTY = 0
 export const PIECE_PLAYER_1 = 1
 export const PIECE_PLAYER_2 = 2
 
-export const startGame = (cols = 7, rows = 6) => {
+const startGame = (cols = 7, rows = 6) => {
   return {
     type: START_GAME,
     payload: {
@@ -27,7 +27,7 @@ export const startGame = (cols = 7, rows = 6) => {
 }
 
 // Action creators
-export const addPiece = (columnIndex, player) => {
+const addPiece = (columnIndex, player) => {
   return {
     type: ADD_PIECE,
     payload: {
@@ -37,13 +37,12 @@ export const addPiece = (columnIndex, player) => {
   }
 }
 
-export const checkAnswer = () => {
+const checkAnswer = () => {
   return {
     type: CHECK_ANSWER
   }
 }
-
-export const hoverPiece = (columnIndex) => {
+const hoverPiece = (columnIndex) => {
   return {
     type: HOVER_PIECE,
     payload: {
@@ -51,27 +50,35 @@ export const hoverPiece = (columnIndex) => {
     }
   }
 }
-export const blurPiece = () => {
+const blurPiece = () => {
   return {
     type: BLUR_PIECE
   }
 }
-
-export const winGame = () => {
+const winGame = () => {
   return {
     type: WIN_GAME
   }
 }
-export const drawGame = () => {
+const drawGame = () => {
   return {
     type: DRAW_GAME
   }
 }
-
-export const exitGame = () => {
+const exitGame = () => {
   return {
     type: EXIT_GAME
   }
+}
+export const actions = {
+  startGame,
+  addPiece,
+  hoverPiece,
+  blurPiece,
+  checkAnswer,
+  winGame,
+  drawGame,
+  exitGame
 }
 
 // Initial state
