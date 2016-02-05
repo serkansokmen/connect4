@@ -1,6 +1,6 @@
 @import url('//fonts.googleapis.com/css?family=Dosis|Candal');
 
-
+$piece-empty-color: #E7E7E7;
 $piece-color-1: #4A90E2;
 $piece-color-2: #F5A623;
 
@@ -43,10 +43,11 @@ h1, h2 {
 	width: 60px;
 	height: 60px;
 	border-radius: 50%;
-  border: 1px solid white;
+  border: 2px solid white;
+  background: $piece-empty-color;
 	cursor: pointer;
 	text-decoration: none;
-  transition: all 0.2s;
+  transition: all 0.2s ease-out;
   @for $i from 1 through 30 {
     &:nth-of-type(#{$i}) {
       transition-delay: 50ms * $i;
@@ -58,41 +59,36 @@ h1, h2 {
     outline: none;
   }
 }
-.piece-empty {
-	background: #E7E7E7;
-}
-[class*="piece-"] {
-  &:hover {
-    text-decoration: none;
-  }
-}
 [class*="piece-player-"] {
-  box-shadow: inset 0px 0px 16px 0px rgba(0,0,0,0.16);
-
+  box-shadow: inset 0px 0px 16px 0px rgba(0,0,0,0.5);
   &:hover {
     box-shadow: none;
   }
 }
 .piece-player-1 {
 	background: $piece-color-1;
+  transform: scaleX(1.1) scaleY(1.1);
   &:hover {
     background: $piece-color-1;
   }
 }
 .piece-player-2 {
 	background: $piece-color-2;
+  transform: scaleX(1.1) scaleY(1.1);
   &:hover {
     background: $piece-color-2;
   }
 }
 .column-hovered-player-1 {
   .piece-empty {
-    background: $piece-color-1;
+    border: 2px solid $piece-color-1;
+    background: lighten($piece-empty-color, .5);
   }
 }
 .column-hovered-player-2 {
   .piece-empty {
-    background: $piece-color-2;
+    border: 2px solid $piece-color-2;
+    background: lighten($piece-empty-color, .5);
   }
 }
 
