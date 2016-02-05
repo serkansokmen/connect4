@@ -9,7 +9,9 @@ const Board = ({ grid, player, hoverColumnIndex, hovered, onPieceClick, onPieceH
       columnClsName += ` column-hovered-player-${player}`
     }
     return (
-      <div className={columnClsName} key={`c-${y}`}>
+      <div className={columnClsName} key={`c-${y}`}
+        onMouseEnter={onPieceHover.bind(this, y)}
+        onMouseOut={onPieceBlur.bind(this)}>
         {column.map((piece, x) => {
           return <Piece key={`cell-${x}-${y}`}
             value={piece}
@@ -17,8 +19,7 @@ const Board = ({ grid, player, hoverColumnIndex, hovered, onPieceClick, onPieceH
             y={y}
             player={player}
             onPieceClick={onPieceClick.bind(this)}
-            onPieceHover={onPieceHover.bind(this)}
-            onPieceBlur={onPieceBlur.bind(this)}/>
+            onPieceHover={onPieceHover.bind(this)}/>
         })}
       </div>
     );
