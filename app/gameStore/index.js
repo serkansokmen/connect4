@@ -1,6 +1,5 @@
 import { createStore, combineReducers } from 'redux'
 import matches, { isGameTied } from './matches';
-// import { Map, List, fromJS } from 'immutable'
 
 // Constants
 const START_GAME = 'START_GAME'
