@@ -6,8 +6,8 @@ import Modal from 'react-modal'
 import SplashScreen from './SplashScreen'
 import Board from './Board'
 
-
-class Game extends Component {
+// Also export unconnected component for testing
+export class Game extends Component {
 
   static propTypes = {
     grid: PropTypes.array,
@@ -47,7 +47,7 @@ class Game extends Component {
     this.props.actions.addPiece(colIndex, player)
     setTimeout(() => {
       this.props.actions.checkAnswer()
-    }, 400)
+    }, 800)
   }
 
   handleHover (colIndex) {
@@ -70,7 +70,6 @@ class Game extends Component {
       matches,
       result,
       isGameRunning,
-      hovered,
       hoverColumnIndex
     } = this.props
 
@@ -97,7 +96,6 @@ class Game extends Component {
           <div className='col-xs-12'>
             {isGameRunning ? (<div className='text-center'>
                 <Board grid={grid}
-                  hovered={hovered}
                   player={player}
                   hoverColumnIndex={hoverColumnIndex}
                   onPieceClick={this.handleAddPiece.bind(this)}
@@ -137,7 +135,6 @@ const mapStateToProps = (state) => {
     gameTied: state.gameTied,
     result: state.result,
     isGameRunning: state.isGameRunning,
-    hovered: state.hovered,
     hoverColumnIndex: state.hoverColumnIndex
   }
 }

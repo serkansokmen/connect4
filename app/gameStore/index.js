@@ -12,9 +12,25 @@ const EXIT_GAME = 'EXIT_GAME'
 const HOVER_PIECE = 'HOVER_PIECE'
 const BLUR_PIECE = 'BLUR_PIECE'
 
-export const PIECE_EMPTY = 0
-export const PIECE_PLAYER_1 = 1
-export const PIECE_PLAYER_2 = 2
+const PIECE_EMPTY = 0
+const PIECE_PLAYER_1 = 1
+const PIECE_PLAYER_2 = 2
+
+export const constants = {
+  START_GAME,
+  ADD_PIECE,
+  CHECK_ANSWER,
+  WIN_GAME,
+  DRAW_GAME,
+  EXIT_GAME,
+
+  HOVER_PIECE,
+  BLUR_PIECE,
+
+  PIECE_EMPTY,
+  PIECE_PLAYER_1,
+  PIECE_PLAYER_2
+}
 
 const startGame = (cols = 7, rows = 6) => {
   return {
@@ -93,12 +109,11 @@ const initialState = {
   gameTied: false,
   result: null,
   isGameRunning: false,
-  hovered: false,
   hoverColumnIndex: null
 }
 
 // Reducers
-const connect4 = (state = initialState, action) => {
+export const reducer = (state = initialState, action) => {
   switch (action.type) {
 
     case START_GAME:
@@ -122,7 +137,6 @@ const connect4 = (state = initialState, action) => {
         matches: false,
         inserts: 0,
         isGameRunning: true,
-        hovered: false,
         hoverColumnIndex: null
       }
 
@@ -151,7 +165,7 @@ const connect4 = (state = initialState, action) => {
         player: isAvailableCell ? getOtherPlayer(state.player) : state.player,
         grid: newGrid,
         boardActive: false,
-        hovered: false
+        hoverColumnIndex: columnIndex
       }
 
     case CHECK_ANSWER:
@@ -164,15 +178,14 @@ const connect4 = (state = initialState, action) => {
       }
 
     case HOVER_PIECE:
+      console.log(action.payload.columnIndex);
       return {
         ...state,
-        hovered: true,
         hoverColumnIndex: action.payload.columnIndex
       }
     case BLUR_PIECE:
       return {
         ...state,
-        hovered: false,
         hoverColumnIndex: null
       }
 
@@ -203,9 +216,9 @@ const connect4 = (state = initialState, action) => {
   }
 }
 
-const getOtherPlayer = (player) => {
+export const getOtherPlayer = (player) => {
   return player === PIECE_PLAYER_1 ? PIECE_PLAYER_2 : PIECE_PLAYER_1
 }
 
 // Store
-export default createStore(connect4)
+export default createStore(reducer)

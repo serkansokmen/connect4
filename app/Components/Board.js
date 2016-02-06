@@ -1,25 +1,24 @@
 import React from 'react'
 import Piece from './Piece'
 
-const Board = ({ grid, player, hoverColumnIndex, hovered, onPieceClick, onPieceHover, onPieceBlur }) => {
+const Board = ({ grid, player, hoverColumnIndex, onPieceClick, onPieceHover, onPieceBlur }) => {
   // Array of cells
   const pieces = grid.map((column, y) => {
     let columnClsName = 'column'
-    if (y === hoverColumnIndex && hovered) {
+    if (y === hoverColumnIndex) {
       columnClsName += ` column-hovered-player-${player}`
     }
     return (
       <div className={columnClsName} key={`c-${y}`}
         onMouseEnter={onPieceHover.bind(this, y)}
-        onMouseOut={onPieceBlur.bind(this)}>
+        onClick={onPieceClick.bind(this, y, player)}>
         {column.map((piece, x) => {
           return <Piece key={`cell-${x}-${y}`}
             value={piece}
             x={x}
             y={y}
             player={player}
-            onPieceClick={onPieceClick.bind(this)}
-            onPieceHover={onPieceHover.bind(this)}/>
+            onMouseOut={onPieceBlur.bind(this)}/>
         })}
       </div>
     );

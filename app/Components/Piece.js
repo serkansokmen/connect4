@@ -1,18 +1,16 @@
 import React from 'react'
-import { PIECE_EMPTY, PIECE_PLAYER_1, PIECE_PLAYER_2 } from '../gameStore'
+import { constants } from '../gameStore'
 
-const Piece = ({ value, x, y, player, onPieceClick, onPieceHover }) => {
+const Piece = ({ value, x, y, player }) => {
   let clsName = 'piece'
-  if (value === PIECE_PLAYER_1) {
+  if (value === constants.PIECE_PLAYER_1) {
     clsName += ' piece-player-1'
-  } else if (value === PIECE_PLAYER_2) {
+  } else if (value === constants.PIECE_PLAYER_2) {
     clsName += ' piece-player-2'
-  } else if (value === PIECE_EMPTY) {
+  } else if (value === constants.PIECE_EMPTY) {
     clsName += ' piece-empty'
   }
-  return <button className={clsName}
-   onClick={onPieceClick.bind(this, y, player)}
-   onMouseEnter={onPieceHover.bind(this, y)}></button>
+  return <button className={clsName}></button>
 }
 
 export default Piece
