@@ -6,6 +6,7 @@ import Modal from 'react-modal'
 import SplashScreen from './SplashScreen'
 import Board from './Board'
 
+
 // Also export unconnected component for testing
 export class Game extends Component {
 
@@ -47,7 +48,7 @@ export class Game extends Component {
     this.props.actions.addPiece(colIndex, player)
     setTimeout(() => {
       this.props.actions.checkAnswer()
-    }, 800)
+    }, 400)
   }
 
   handleHover (colIndex) {
@@ -63,6 +64,7 @@ export class Game extends Component {
   render () {
 
     const {
+      splashSkipped,
       boardActive,
       inserts,
       player,
@@ -78,7 +80,7 @@ export class Game extends Component {
     const didAyoneWin = !boardActive && matches && !isGameRunning
     const modalStyles = {
       content : {
-        top: '50%',
+        top: '30%',
         left: '50%',
         right: 'auto',
         bottom: 'auto',
@@ -86,6 +88,8 @@ export class Game extends Component {
         transform: 'translate(-50%, -50%)',
         textAlign: 'center',
         padding: 40,
+        borderRadius: 12,
+        backgroundColor: 'rgba(255,255,255,0.5)',
         color: didAyoneWin ? (player === 1 ? '#F5A623' : '#4A90E2') : '#000'
       }
     }
@@ -94,7 +98,7 @@ export class Game extends Component {
       <div className='container'>
         <div className='row'>
           <div className='col-xs-12'>
-            {isGameRunning ? (<div className='text-center'>
+            {splashSkipped ? (<div className='text-center'>
                 <Board grid={grid}
                   player={player}
                   hoverColumnIndex={hoverColumnIndex}
@@ -111,13 +115,14 @@ export class Game extends Component {
           </div>
         </div>
 
-        <Modal isOpen={!boardActive && matches && !isGameRunning}
+        <Modal className='Modal__Bootstrap modal-dialog'
           closeTimeoutMS={150}
-          style={modalStyles}
-          onRequestClose={this.closeModal}>
+          isOpen={!boardActive && matches && !isGameRunning}
+          onRequestClose={() => this.props.actions.exitGame()}
+          style={modalStyles}>
           <h2>{result}</h2>
           <button className='btn btn-lg btn-secondary-outline'
-            onClick={this.handleStartGame}>Play again</button>
+            onClick={this.handleStartGame}><i className="fa fa-refresh"></i> Play again</button>
         </Modal>
       </div>
     )
@@ -127,6 +132,7 @@ export class Game extends Component {
 
 const mapStateToProps = (state) => {
   return {
+    splashSkipped: state.splashSkipped,
     grid: state.grid,
     player: state.player,
     boardActive: state.boardActive,

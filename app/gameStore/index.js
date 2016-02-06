@@ -109,7 +109,8 @@ const initialState = {
   gameTied: false,
   result: null,
   isGameRunning: false,
-  hoverColumnIndex: null
+  hoverColumnIndex: null,
+  splashSkipped: false
 }
 
 // Reducers
@@ -137,7 +138,8 @@ export const reducer = (state = initialState, action) => {
         matches: false,
         inserts: 0,
         isGameRunning: true,
-        hoverColumnIndex: null
+        hoverColumnIndex: null,
+        splashSkipped: true
       }
 
     case ADD_PIECE:
