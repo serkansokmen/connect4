@@ -116,21 +116,24 @@ describe('gameStore', () => {
 
   describe('reducers', () => {
 
+    // Initial state
+    const initialState = {
+      grid: [],
+      cols: 7,
+      rows: 6,
+      inserts: 0,
+      player: 1,
+      boardActive: false,
+      matches: false,
+      gameTied: false,
+      result: null,
+      isGameRunning: false,
+      hoverColumnIndex: null,
+      splashSkipped: false
+    }
+
     it('should return the initial state', () => {
-      expect(reducer(undefined, {})).toEqual({
-        grid: [],
-        cols: 7,
-        rows: 6,
-        inserts: 0,
-        player: 1,
-        boardActive: false,
-        matches: false,
-        gameTied: false,
-        result: null,
-        isGameRunning: false,
-        hovered: false,
-        hoverColumnIndex: null
-      })
+      expect(reducer(undefined, {})).toEqual(initialState)
     })
 
     // it('should handle `START_GAME`', () => {

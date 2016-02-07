@@ -1,6 +1,6 @@
 import React from 'react'
 
-const SplashScreen = ({ onNewGame }) => {
+export const SplashScreen = ({ onNewGame }) => {
   return (
     <div className='jumbotron'>
       <h1 className="text-center">CONNECT4</h1>
