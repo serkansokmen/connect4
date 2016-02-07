@@ -16,10 +16,6 @@ body {
 	font-family: 'Dosis', sans-serif;
 }
 
-.container {
-  max-width: 600px;
-}
-
 h1, h2 {
 	font-family: 'Candal', sans-serif;
 	margin-bottom: 36px;
@@ -44,6 +40,7 @@ h1, h2 {
 	display: flex;
 	flex-wrap: nowrap;
 	justify-content: space-around;
+  width: 520px;
 	height: 480px;
   border: 2px solid $piece-empty-color;
   background: $board-bg-color;
@@ -109,10 +106,8 @@ h1, h2 {
 }
 
 @media only screen and (max-width: 543px) {
-  .container {
-    max-width: 320px;
-  }
   .board {
+    width: 320px;
     height: 320px;
   }
   .piece {
