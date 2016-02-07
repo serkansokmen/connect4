@@ -102,6 +102,7 @@ export class Game extends Component {
                 <Board grid={grid}
                   player={player}
                   hoverColumnIndex={hoverColumnIndex}
+                  boardActive={boardActive}
                   onPieceClick={this.handleAddPiece.bind(this)}
                   onPieceHover={this.handleHover.bind(this)}
                   onPieceBlur={this.handleBlur.bind(this)}/>

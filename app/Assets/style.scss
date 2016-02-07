@@ -35,17 +35,21 @@ h1, h2 {
 .text-center {
   text-align: center;
 }
-
-.board {
-	display: flex;
-	flex-wrap: nowrap;
-	justify-content: space-around;
+.board-container {
   width: 520px;
-	height: 480px;
+  height: 480px;
   border: 2px solid $piece-empty-color;
   background: $board-bg-color;
   border-radius: 36px;
   padding: 20px;
+}
+.board {
+  // position: relative;
+	display: flex;
+	flex-wrap: nowrap;
+	justify-content: space-around;
+  height: 100%;
+  background: $board-bg-color;
 }
 .column {
 	display: flex;
@@ -74,7 +78,24 @@ h1, h2 {
     text-decoration: none;
     outline: none;
   }
+
+  &.drop-piece {
+    transition-delay: 0s;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    // pointer-events: none;
+    border-color: transparent;
+    transition: top 0s, left .2s, opacity 0s;
+    z-index: -10;
+    &.dropped {
+      transition: top .2s, left .2s, opacity .4s;
+    }
+  }
 }
+
 [class*="piece-player-"] {
   box-shadow: inset 0px 0px 16px 0px rgba(0,0,0,0.5);
 }
@@ -95,18 +116,16 @@ h1, h2 {
 .column-hovered-player-1 {
   .piece-empty {
     border: 2px solid $piece-color-1;
-    background: lighten($piece-empty-color, .5);
   }
 }
 .column-hovered-player-2 {
   .piece-empty {
     border: 2px solid $piece-color-2;
-    background: lighten($piece-empty-color, .5);
   }
 }
 
 @media only screen and (max-width: 543px) {
-  .board {
+  .board-container {
     width: 320px;
     height: 320px;
   }
