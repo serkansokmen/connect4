@@ -72,6 +72,7 @@ export class Game extends Component {
       matches,
       result,
       isGameRunning,
+      pieceIndex,
       hoverColumnIndex
     } = this.props
 
@@ -101,6 +102,7 @@ export class Game extends Component {
             {splashSkipped ? (<div className='text-center'>
                 <Board grid={grid}
                   player={player}
+                  pieceIndex={pieceIndex}
                   hoverColumnIndex={hoverColumnIndex}
                   boardActive={boardActive}
                   onPieceClick={this.handleAddPiece.bind(this)}
@@ -142,6 +144,7 @@ const mapStateToProps = (state) => {
     gameTied: state.gameTied,
     result: state.result,
     isGameRunning: state.isGameRunning,
+    pieceIndex: state.pieceIndex,
     hoverColumnIndex: state.hoverColumnIndex
   }
 }

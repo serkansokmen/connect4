@@ -109,6 +109,7 @@ const initialState = {
   gameTied: false,
   result: null,
   isGameRunning: false,
+  pieceIndex: null,
   hoverColumnIndex: null,
   splashSkipped: false
 }
@@ -167,6 +168,7 @@ export const reducer = (state = initialState, action) => {
         player: isAvailableCell ? getOtherPlayer(state.player) : state.player,
         grid: newGrid,
         boardActive: false,
+        pieceIndex: cellIndex,
         hoverColumnIndex: columnIndex
       }
 

@@ -4,7 +4,7 @@ import Piece from './Piece'
 import { constants } from '../gameStore'
 
 
-const Board = ({ grid, player, boardActive, hoverColumnIndex, onPieceClick, onPieceHover, onPieceBlur }) => {
+const Board = ({ grid, player, boardActive, hoverColumnIndex, pieceIndex, onPieceClick, onPieceHover, onPieceBlur }) => {
   // Array of cells
   const pieces = grid.map((column, y) => {
     let columnClsName = 'column'
@@ -27,20 +27,26 @@ const Board = ({ grid, player, boardActive, hoverColumnIndex, onPieceClick, onPi
     );
   });
 
-  const isPlayer1 = player === constants.PIECE_PLAYER_2
-  const isPlayer2 = player === constants.PIECE_PLAYER_1
-  const left = 40 + 68 * hoverColumnIndex
+  let isPlayer1 = player === constants.PIECE_PLAYER_2
+  let isPlayer2 = player === constants.PIECE_PLAYER_1
+  let left = 40 + 68 * hoverColumnIndex
+  let topZero = -25
+  let topPadding = 60
+  let topDiff = 76
+  let minus = 20;
+  let top1 = isPlayer1 ? (boardActive ? topZero : topZero + topPadding + topDiff * pieceIndex - minus) : topZero
+  let top2 = isPlayer2 ? (boardActive ? topZero : topZero + topPadding + topDiff * pieceIndex - minus) : topZero
 
   const dropPieceStyles = {
     piece1: {
       left,
-      top: isPlayer1 ? (boardActive ? -45 : 240) : -45,
+      top: top1,
       opacity: isPlayer1 ? 0 : 1,
       zIndex: isPlayer1 ? 90 : 100
     },
     piece2: {
       left,
-      top: isPlayer2 ? boardActive ? -45 : 240 : -45,
+      top: top2,
       opacity: isPlayer2 ? 0 : 1,
       zIndex: isPlayer2 ? 90 : 100
     }

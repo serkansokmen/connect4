@@ -57,6 +57,7 @@ describe('gameStore', () => {
     it('should create an action to add a new piece', () => {
       const player = 1
       const columnIndex = 1
+      const pieceIndex = 4
       const expectedAction = {
         type: constants.ADD_PIECE,
         payload: {
@@ -64,7 +65,7 @@ describe('gameStore', () => {
           player
         }
       }
-      expect(actions.addPiece(columnIndex, player)).toEqual(expectedAction)
+      expect(actions.addPiece(columnIndex, pieceIndex, player)).toEqual(expectedAction)
     })
 
     it('should create an action to check answer', () => {
@@ -128,6 +129,7 @@ describe('gameStore', () => {
       gameTied: false,
       result: null,
       isGameRunning: false,
+      pieceIndex: null,
       hoverColumnIndex: null,
       splashSkipped: false
     }
