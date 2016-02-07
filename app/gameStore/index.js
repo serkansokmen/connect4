@@ -180,7 +180,6 @@ export const reducer = (state = initialState, action) => {
       }
 
     case HOVER_PIECE:
-      console.log(action.payload.columnIndex);
       return {
         ...state,
         hoverColumnIndex: action.payload.columnIndex
