@@ -30,10 +30,10 @@ const Board = ({ grid, player, boardActive, hoverColumnIndex, pieceIndex, onPiec
   let isPlayer1 = player === constants.PIECE_PLAYER_2
   let isPlayer2 = player === constants.PIECE_PLAYER_1
   let left = 40 + 68 * hoverColumnIndex
-  let topZero = -25
+  let topZero = -45
   let topPadding = 60
   let topDiff = 76
-  let minus = 20;
+  let minus = 0;
   let top1 = isPlayer1 ? (boardActive ? topZero : topZero + topPadding + topDiff * pieceIndex - minus) : topZero
   let top2 = isPlayer2 ? (boardActive ? topZero : topZero + topPadding + topDiff * pieceIndex - minus) : topZero
 
