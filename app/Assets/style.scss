@@ -5,9 +5,15 @@ $piece-empty-color: #fff;
 $piece-color-1: #4A90E2;
 $piece-color-2: #F5A623;
 
+html,
+body,
+#app,
+.container {
+  height: 100%;
+}
+
 body {
 	font-family: 'Dosis', sans-serif;
-	padding-top: 60px;
 }
 
 .container {
@@ -19,8 +25,15 @@ h1, h2 {
 	margin-bottom: 36px;
 }
 
+.container {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .jumbotron {
 	text-align: center;
+  padding: 8rem 2rem;
 }
 
 .text-center {
@@ -100,7 +113,7 @@ h1, h2 {
     max-width: 320px;
   }
   .board {
-    height: 240px;
+    height: 320px;
   }
   .piece {
     width: 40px;
@@ -110,7 +123,7 @@ h1, h2 {
 
 @media only screen and (max-width: 767px) {
   body {
-    padding-top: 20px;
+    // padding-top: 20px;
   }
 }
 
