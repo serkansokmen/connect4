@@ -2,7 +2,7 @@ import React from 'react'
 import { constants } from '../gameStore'
 
 const DropPiece = ({ column, dropped, player, style }) => {
-  let clsName = 'piece drop-piece'
+  let clsName = 'piece drop-piece hidden-xs-down'
   if (player === constants.PIECE_PLAYER_1) {
     clsName += ' piece-player-1'
   } else if (player === constants.PIECE_PLAYER_2) {
